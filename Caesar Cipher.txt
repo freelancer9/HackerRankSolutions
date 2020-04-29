@@ -1,0 +1,79 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    // Complete the caesarCipher function below.
+    static String caesarCipher(String s, int k) {
+       int len = s.length();
+       char [] ch = new char[len];
+        String ss = "";
+        int j = k%26;
+       for(int i=0; i<=len-1; i++){
+        if(!((s.charAt(i)>96 && s.charAt(i)<123) || (s.charAt(i)>64 && s.charAt(i)<91)))
+           {
+               System.out.println("In first condition: " + i);
+               ch[i] +=s.charAt(i);
+           }
+           else if (s.charAt(i)>96 && s.charAt(i)<123){
+                  System.out.println("In second condition; " + i);
+               int chh = s.charAt(i)+j;
+               System.out.println("In second condition; " + chh);
+                  if(chh>122){
+                int fac =chh-122;
+                
+                ch[i] +=(char)(96 +fac);
+               }
+               else{
+                   ch[i] +=(char)s.charAt(i)+j;
+                   System.out.println("In second condition; " + ch[i]);
+               }
+    
+           }
+               
+               else if(s.charAt(i)>64 && s.charAt(i)<91){
+                   
+                   int chh = s.charAt(i)+j;
+                   if(chh>90){
+                   int fac =chh-90;
+                   int actfact = fac -1; 
+                  ch[i] +=(char)(65 +actfact);
+                   } 
+               
+               else{
+               ch[i] +=(char)(s.charAt(i) +j);
+               }           
+           }
+       }
+       String sss = new String (ch);
+        return sss;
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int n = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        String s = scanner.nextLine();
+
+        int k = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        String result = caesarCipher(s, k);
+
+        bufferedWriter.write(result);
+        bufferedWriter.newLine();
+
+        bufferedWriter.close();
+
+        scanner.close();
+    }
+}
